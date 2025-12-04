@@ -114,3 +114,20 @@ The following examples are provided in the the folder `scenes`.
 ```
 
 ![](./readme/all.png)
+
+## Tests
+
+End-to-end tests are driven by CTest:
+
+```bash
+mkdir -p build && cd build
+cmake ..
+make -j
+ctest -V
+```
+
+Reference PNGs live in `expected/` (pre-populated from `readme/`). If you change a scene on purpose, regenerate its golden image from the build dir: `./raytracer ../scenes/<scene>.json ../expected/<scene>.png`.
+
+An edge-case scene (`empty-scene.json`, 8x8, aucun objet/lumière) checks que le pipeline ne plante pas sur une scène minimale.
+
+Un test `benchmark_two-spheres` exécute `cmake -E time` autour du rendu pour afficher le temps mesuré ; lance-le seul via `ctest -V -R benchmark_two-spheres`.
